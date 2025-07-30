@@ -44,19 +44,19 @@ export default function Skills() {
     { 
       degree: 'MCA', 
       institution: 'MDU', 
-      year: '2024',
+      year: '2024 - Present',
       description: 'Master of Computer Applications with focus on advanced programming and software development'
     },
     { 
       degree: 'BCA', 
       institution: 'MDU', 
-      year: '2022',
+      year: '2020 - 2023',
       description: 'Bachelor of Computer Applications covering programming fundamentals and computer science concepts'
     },
     { 
       degree: 'DCA', 
       institution: 'Hartron Skill Center', 
-      year: '2020',
+      year: '2022-2023',
       description: 'Diploma in Computer Applications focusing on basic computer skills and office applications'
     }
   ];
