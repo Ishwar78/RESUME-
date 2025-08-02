@@ -4,9 +4,9 @@ import { Header } from '../components/Header';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { 
-  Github, 
-  Linkedin, 
+import {
+  Github,
+  Linkedin,
   ChevronRight,
   User,
   Code,
@@ -47,7 +47,7 @@ export default function Index() {
     { name: 'Node.js', icon: '🟢', color: 'bg-green-500' },
     { name: 'MongoDB', icon: '🍃', color: 'bg-green-600' },
     { name: 'JavaScript', icon: '🟨', color: 'bg-yellow-500' },
-        { name: 'My-Sql', icon: '🍃', color: 'bg-green-600' }
+    { name: 'My-Sql', icon: '🍃', color: 'bg-green-600' }
   ];
 
   const highlights = [
@@ -74,7 +74,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
         {/* Animated Background */}
@@ -86,7 +86,7 @@ export default function Index() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-            
+
             {/* Left Content */}
             <div className="text-center lg:text-left space-y-8 animate-fade-in">
               <div>
@@ -94,17 +94,17 @@ export default function Index() {
                   <Zap className="w-4 h-4" />
                   Available for Full-time Opportunities
                 </div>
-                
+
                 <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
                   <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient-x">
                     Ishwar Sharma
                   </span>
                 </h1>
-                
+
                 <h2 className="text-2xl md:text-3xl xl:text-4xl font-semibold text-muted-foreground mb-4">
                   Full Stack Developer
                 </h2>
-                
+
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
                   Crafting scalable web applications with modern technologies.
                   Specializing in <span className="text-primary font-semibold">Node.js</span>,
@@ -117,7 +117,7 @@ export default function Index() {
               {/* Tech Stack Pills */}
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 {techStack.map((tech, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="inline-flex items-center gap-2 bg-card border border-border px-4 py-2 rounded-full hover:shadow-md transition-all duration-300 hover:scale-105"
                   >
@@ -126,22 +126,22 @@ export default function Index() {
                   </div>
                 ))}
               </div>
-              
+
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link to="/projects">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   >
                     View My Work
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                
+
                 <div className="flex gap-3">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="lg"
                     onClick={() => window.open('https://linkedin.com/in/ishwar-sharma-4671002a7', '_blank')}
                     className="px-6 py-4 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
@@ -149,8 +149,8 @@ export default function Index() {
                     <Linkedin className="mr-2 h-5 w-5" />
                     LinkedIn
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="lg"
                     onClick={() => window.open('https://github.com/Ishwar78', '_blank')}
                     className="px-6 py-4 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
@@ -181,7 +181,7 @@ export default function Index() {
                 {/* Background Effects */}
                 <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-3xl animate-pulse"></div>
                 <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 rounded-2xl"></div>
-                
+
                 {/* Main Image Container */}
                 <div className="relative bg-card border-4 border-white dark:border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
                   <img
@@ -189,7 +189,7 @@ export default function Index() {
                     alt="Ishwar Sharma - Full Stack Developer"
                     className="w-80 h-96 md:w-96 md:h-[28rem] object-cover"
                   />
-                  
+
                   {/* Overlay Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                 </div>
@@ -217,12 +217,8 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-muted-foreground rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
+    
+      
       </section>
 
       {/* Quick Navigation Section */}
@@ -233,7 +229,7 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore My Portfolio</h2>
               <p className="text-xl text-muted-foreground">Discover my skills, experience, and projects</p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Link to="/about" className="group">
                 <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 hover:border-primary/50">
@@ -295,7 +291,7 @@ export default function Index() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Project</h2>
               <p className="text-xl text-muted-foreground">Showcasing my latest work</p>
             </div>
-            
+
             <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl">
               <div className="grid lg:grid-cols-2 gap-0">
                 <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-8 lg:p-12 flex items-center justify-center">
@@ -312,16 +308,16 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                   <h4 className="text-xl font-semibold mb-4 text-primary">Pharmaceutical Company Website</h4>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    A modern, responsive website built with React.js and powered by MongoDB Atlas. 
-                    Features include product showcase, contact management, and admin dashboard 
+                    A modern, responsive website built with React.js and powered by MongoDB Atlas.
+                    Features include product showcase, contact management, and admin dashboard
                     for content management.
                   </p>
                   <div className="flex gap-4">
-                    <Button 
+                    <Button
                       onClick={() => window.open('http://viksoninternationalmedisys.com/', '_blank')}
                       className="flex-1"
                     >
@@ -347,24 +343,24 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-6">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="lg"
                 onClick={() => window.open('https://github.com/Ishwar78', '_blank')}
                 className="hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               >
                 <Github className="w-5 h-5" />
               </Button>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="lg"
                 onClick={() => window.open('https://linkedin.com/in/ishwar-sharma-4671002a7', '_blank')}
                 className="hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               >
                 <Linkedin className="w-5 h-5" />
               </Button>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="lg"
                 onClick={() => window.open('/resume.pdf', '_blank')}
                 className="hover:bg-primary hover:text-primary-foreground transition-all duration-300"
@@ -373,7 +369,7 @@ export default function Index() {
               </Button>
             </div>
             <p className="text-muted-foreground text-center">
-              © 2025 Ishwar Sharma | 
+              © 2025 Ishwar Sharma |
             </p>
           </div>
         </div>
