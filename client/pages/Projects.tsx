@@ -99,6 +99,24 @@ export default function Projects() {
       tech: ['React', 'JavaScript', 'CSS'],
       liveUrl: 'https://auctionplat.netlify.app/',
       image: '/placeholder.svg'
+    },
+    {
+      name: 'JB Industries',
+      description: 'Modern industrial website showcasing company services and products with professional design and user-friendly interface.',
+      tech: ['React', 'JavaScript', '"Tailwind CSS"','MongoDB', 'Node.js'],
+      liveUrl: 'https://jbinds.com',
+      githubUrl: 'https://github.com/Ishwar78/Jbindus',
+      featured: true,
+      image: '/placeholder.svg'
+    },
+    {
+      name: 'Intelligate Solution',
+      description: 'Professional consultancy website for job hiring and recruitment services. Features job postings, candidate management, and hiring solutions.',
+      tech: ['React', 'Node.js',"Tailwind CSS", 'MongoDB', 'Express.js'],
+      liveUrl: 'https://intelligatesolution.com/',
+      githubUrl: 'https://github.com/Ishwar78/Intelligate',
+      featured: true,
+      image: '/placeholder.svg'
     }
   ];
 
@@ -117,9 +135,9 @@ export default function Projects() {
               <p className="text-xl text-muted-foreground">A showcase of my work and achievements</p>
             </div>
             
-            {/* Featured Project */}
+            {/* Live Projects */}
             <div className="mb-16 animate-slide-up">
-              <h2 className="text-3xl font-semibold mb-8 text-center">Featured Project</h2>
+              <h2 className="text-3xl font-semibold mb-8 text-center">Live Projects</h2>
               {projects.filter(p => p.featured).map((project, index) => (
                 <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/20">
                   <div className="grid md:grid-cols-2 gap-0">

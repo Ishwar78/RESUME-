@@ -41,23 +41,29 @@ export default function Skills() {
   ];
 
   const education = [
-    { 
-      degree: 'MCA', 
-      institution: 'MDU', 
-      year: '2024 - Present',
+    {
+      degree: 'MCA',
+      institution: 'MDU',
+      year: '2024',
       description: 'Master of Computer Applications with focus on advanced programming and software development'
     },
-    { 
-      degree: 'BCA', 
-      institution: 'MDU', 
-      year: '2020 - 2023',
+    {
+      degree: 'BCA',
+      institution: 'MDU',
+      year: '2022',
       description: 'Bachelor of Computer Applications covering programming fundamentals and computer science concepts'
     },
-    { 
-      degree: 'DCA', 
-      institution: 'Hartron Skill Center', 
-      year: '2022-2023',
+    {
+      degree: 'DCA',
+      institution: 'Hartron Skill Center',
+      year: '2020',
       description: 'Diploma in Computer Applications focusing on basic computer skills and office applications'
+    },
+    {
+      degree: 'Java Full Stack Developer',
+      institution: 'Ducat Center, Gurugram',
+      year: '2024',
+      description: '1-year comprehensive course in Full Stack Development with HTML,CSS,JavaScript,React.js, Java, Spring Boot,  and database management'
     }
   ];
 
