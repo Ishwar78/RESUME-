@@ -39,35 +39,41 @@ export default function Contact() {
     document.documentElement.classList.toggle('dark', newDarkMode);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // 🔗 Formspree submit
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/send-email', {
+      // Build form payload for Formspree
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('email', formData.email);
+      data.append('message', formData.message);
+      data.append('subject', 'New contact from portfolio'); // optional subject
+      data.append('_gotcha', ''); // honeypot (leave empty)
+
+      const response = await fetch('https://formspree.io/f/xrbydrrw', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+        headers: { Accept: 'application/json' }, // important for JSON response
+        body: data,
       });
 
-      const result = await response.json();
-
-      if (result.success) {
+      if (response.ok) {
         toast({
-          title: "Message Sent!",
+          title: 'Message Sent!',
           description: "Thank you for your message. I'll get back to you soon!",
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        throw new Error(result.message);
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result?.errors?.[0]?.message || 'Submit failed');
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to send message. Please try again later.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -96,16 +102,8 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    {
-      icon: Github,
-      label: 'GitHub',
-      href: 'https://github.com/Ishwar78'
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      href: 'https://linkedin.com/in/ishwar-sharma-4671002a7'
-    }
+    { icon: Github, label: 'GitHub', href: 'https://github.com/Ishwar78' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/ishwar-sharma-4671002a7' }
   ];
 
   return (
@@ -200,17 +198,23 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Hidden fields (optional) */}
+                    <input type="hidden" name="subject" value="New contact from portfolio" />
+                    <input type="text" name="_gotcha" style={{ display: 'none' }} readOnly />
+
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-2">
                         Your Name *
                       </label>
                       <Input
                         id="name"
+                        name="name"                 // ← required by Formspree
                         placeholder="Enter your name"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                         required
                         className="w-full"
+                        autoComplete="name"
                       />
                     </div>
                     
@@ -220,12 +224,14 @@ export default function Contact() {
                       </label>
                       <Input
                         id="email"
+                        name="email"               // ← required by Formspree
                         type="email"
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
                         required
                         className="w-full"
+                        autoComplete="email"
                       />
                     </div>
                     
@@ -235,6 +241,7 @@ export default function Contact() {
                       </label>
                       <Textarea
                         id="message"
+                        name="message"             // ← required by Formspree
                         placeholder="Tell me about your project or just say hello!"
                         rows={6}
                         value={formData.message}
