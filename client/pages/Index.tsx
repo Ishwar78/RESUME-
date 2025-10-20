@@ -372,7 +372,7 @@ export default function Index() {
               </Button>
             </div>
             <p className="text-muted-foreground text-center">
-              © 2025 Ishwar Sharma | Crafted with 💻 & ❤️ using Builder.io
+              © 2025 Ishwar Sharma | 
             </p>
           </div>
         </div>
