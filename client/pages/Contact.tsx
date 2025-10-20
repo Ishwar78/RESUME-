@@ -39,29 +39,28 @@ export default function Contact() {
     document.documentElement.classList.toggle('dark', newDarkMode);
   };
 
-  // 🔗 Formspree submit
+  // Submit to Formspree
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Build form payload for Formspree
       const data = new FormData();
       data.append('name', formData.name);
       data.append('email', formData.email);
       data.append('message', formData.message);
-      data.append('subject', 'New contact from portfolio'); // optional subject
-      data.append('_gotcha', ''); // honeypot (leave empty)
+      data.append('subject', 'New contact from portfolio');
+      data.append('_gotcha', ''); // honeypot
 
       const response = await fetch('https://formspree.io/f/xrbydrrw', {
         method: 'POST',
-        headers: { Accept: 'application/json' }, // important for JSON response
+        headers: { Accept: 'application/json' },
         body: data,
       });
 
       if (response.ok) {
         toast({
-          title: 'Message Sent!',
+          title: "Message Sent!",
           description: "Thank you for your message. I'll get back to you soon!",
         });
         setFormData({ name: '', email: '', message: '' });
@@ -71,9 +70,9 @@ export default function Contact() {
       }
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Failed to send message. Please try again later.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -198,7 +197,7 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Hidden fields (optional) */}
+                    {/* Hidden fields */}
                     <input type="hidden" name="subject" value="New contact from portfolio" />
                     <input type="text" name="_gotcha" style={{ display: 'none' }} readOnly />
 
@@ -208,10 +207,10 @@ export default function Contact() {
                       </label>
                       <Input
                         id="name"
-                        name="name"                 // ← required by Formspree
+                        name="name"
                         placeholder="Enter your name"
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
                         className="w-full"
                         autoComplete="name"
@@ -224,11 +223,11 @@ export default function Contact() {
                       </label>
                       <Input
                         id="email"
-                        name="email"               // ← required by Formspree
+                        name="email"
                         type="email"
                         placeholder="Enter your email"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
                         className="w-full"
                         autoComplete="email"
@@ -241,11 +240,11 @@ export default function Contact() {
                       </label>
                       <Textarea
                         id="message"
-                        name="message"             // ← required by Formspree
+                        name="message"
                         placeholder="Tell me about your project or just say hello!"
                         rows={6}
                         value={formData.message}
-                        onChange={(e) => setFormData({...formData, message: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         required
                         className="w-full resize-none"
                       />
