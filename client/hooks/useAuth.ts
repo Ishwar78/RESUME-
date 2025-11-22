@@ -39,12 +39,12 @@ export function useAuth(): UseAuthReturn {
           body: JSON.stringify({ email, password }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          const data = await response.json();
           throw new Error(data.error || "Login failed");
         }
 
-        const data = await response.json();
         setToken(data.token);
         setUser(data.user);
         localStorage.setItem("adminToken", data.token);
