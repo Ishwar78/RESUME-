@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 });
 
 // Filter for different file types
-const imageFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+const imageFilter = (req: Request, file: any, cb: FileFilterCallback) => {
   const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
@@ -30,7 +30,7 @@ const imageFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCall
   }
 };
 
-const pdfFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+const pdfFilter = (req: Request, file: any, cb: FileFilterCallback) => {
   if (file.mimetype === 'application/pdf') {
     cb(null, true);
   } else {
@@ -38,7 +38,7 @@ const pdfFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallba
   }
 };
 
-const videoFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+const videoFilter = (req: Request, file: any, cb: FileFilterCallback) => {
   const allowedMimes = ['video/mp4', 'video/webm', 'video/quicktime'];
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
