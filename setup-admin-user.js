@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://sharmaishwar970:ISHWAR2002@cluster0.b73q6ph.mongodb.net/Portfolio";
+const MONGO_URI =
+  process.env.MONGO_URI ||
+  "mongodb+srv://sharmaishwar970:ISHWAR2002@cluster0.b73q6ph.mongodb.net/Portfolio";
 
 const adminUserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true },
