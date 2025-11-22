@@ -3,7 +3,7 @@
  */
 
 export interface ISocialLink {
-  type: 'github' | 'linkedin' | 'twitter' | 'email' | 'website';
+  type: "github" | "linkedin" | "twitter" | "email" | "website";
   label: string;
   url: string;
 }
@@ -25,7 +25,7 @@ export interface IAboutSection {
 export interface ISkill {
   _id?: string;
   label: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  level: "Beginner" | "Intermediate" | "Advanced" | "Expert";
   icon?: string;
   showInHighlights: boolean;
 }
@@ -59,7 +59,7 @@ export interface IProject {
   shortDescription: string;
   techStack: string[];
   role: string;
-  projectType: 'personal' | 'freelance' | 'internship' | 'client work';
+  projectType: "personal" | "freelance" | "internship" | "client work";
   startDate: Date;
   endDate?: Date;
   isOngoing: boolean;
@@ -77,7 +77,7 @@ export interface IExperienceEntry {
   _id?: string;
   companyName: string;
   roleTitle: string;
-  employmentType: 'full-time' | 'part-time' | 'internship' | 'freelance';
+  employmentType: "full-time" | "part-time" | "internship" | "freelance";
   location: string;
   startDate: Date;
   endDate?: Date;

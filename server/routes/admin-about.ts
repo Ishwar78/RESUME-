@@ -1,5 +1,5 @@
-import { RequestHandler } from 'express';
-import { AboutSection, IAboutSection } from '../models/AboutSection';
+import { RequestHandler } from "express";
+import { AboutSection, IAboutSection } from "../models/AboutSection";
 
 export const updateAbout: RequestHandler = async (req, res) => {
   try {
@@ -16,8 +16,8 @@ export const updateAbout: RequestHandler = async (req, res) => {
     await about.save();
     res.json(about);
   } catch (error) {
-    console.error('Update about error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Update about error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -29,7 +29,7 @@ export const getAboutForAdmin: RequestHandler = async (req, res) => {
     }
     res.json(about);
   } catch (error) {
-    console.error('Get about error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Get about error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

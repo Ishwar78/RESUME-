@@ -1,12 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { useApi } from '../hooks/useApi';
-import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit3 } from 'lucide-react';
-import { IProject } from '@shared/types';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { useApi } from "../hooks/useApi";
+import {
+  ArrowLeft,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Trash2,
+  Plus,
+  Edit3,
+} from "lucide-react";
+import { IProject } from "@shared/types";
 
 export default function AdminProjects() {
   const { request } = useApi();
@@ -26,10 +40,10 @@ export default function AdminProjects() {
   const loadProjects = async () => {
     try {
       setIsLoading(true);
-      const data = await request<IProject[]>('/api/admin/projects');
+      const data = await request<IProject[]>("/api/admin/projects");
       setProjects(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load projects');
+      setError(err instanceof Error ? err.message : "Failed to load projects");
     } finally {
       setIsLoading(false);
     }
@@ -38,12 +52,12 @@ export default function AdminProjects() {
   const handleNewProject = () => {
     setEditingId(null);
     setFormData({
-      title: '',
-      slug: '',
-      shortDescription: '',
+      title: "",
+      slug: "",
+      shortDescription: "",
       techStack: [],
-      role: '',
-      projectType: 'personal',
+      role: "",
+      projectType: "personal",
       startDate: new Date(),
       isOngoing: false,
       isFeatured: false,
@@ -60,7 +74,7 @@ export default function AdminProjects() {
 
   const handleSaveProject = async () => {
     if (!formData.title || !formData.slug) {
-      setError('Title and slug are required');
+      setError("Title and slug are required");
       return;
     }
 
@@ -68,14 +82,14 @@ export default function AdminProjects() {
     try {
       if (editingId) {
         await request(`/api/admin/projects/${editingId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       } else {
-        await request('/api/admin/projects', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await request("/api/admin/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       }
@@ -84,29 +98,34 @@ export default function AdminProjects() {
       setTimeout(() => setSuccess(false), 3000);
       loadProjects();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save project');
+      setError(err instanceof Error ? err.message : "Failed to save project");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDeleteProject = async (id: string) => {
-    if (!confirm('Delete this project?')) return;
+    if (!confirm("Delete this project?")) return;
     setIsSaving(true);
     try {
-      await request(`/api/admin/projects/${id}`, { method: 'DELETE' });
+      await request(`/api/admin/projects/${id}`, { method: "DELETE" });
       setSuccess(true);
       loadProjects();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete project');
+      setError(err instanceof Error ? err.message : "Failed to delete project");
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
-    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    const val =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
     setFormData((prev) => ({
       ...prev,
       [name]: val,
@@ -136,7 +155,9 @@ export default function AdminProjects() {
             <div className="flex justify-between items-start">
               <div>
                 <CardTitle>Projects Management</CardTitle>
-                <CardDescription>Manage your portfolio projects</CardDescription>
+                <CardDescription>
+                  Manage your portfolio projects
+                </CardDescription>
               </div>
               <Button onClick={handleNewProject} disabled={showForm}>
                 <Plus className="h-4 w-4 mr-2" />
@@ -163,13 +184,15 @@ export default function AdminProjects() {
             {/* Form */}
             {showForm && (
               <div className="p-6 bg-muted/50 rounded-lg space-y-4 border-2 border-dashed">
-                <h3 className="font-semibold">{editingId ? 'Edit Project' : 'New Project'}</h3>
+                <h3 className="font-semibold">
+                  {editingId ? "Edit Project" : "New Project"}
+                </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label>Title</Label>
                     <Input
                       name="title"
-                      value={formData.title || ''}
+                      value={formData.title || ""}
                       onChange={handleInputChange}
                       placeholder="Project name"
                     />
@@ -178,7 +201,7 @@ export default function AdminProjects() {
                     <Label>Slug</Label>
                     <Input
                       name="slug"
-                      value={formData.slug || ''}
+                      value={formData.slug || ""}
                       onChange={handleInputChange}
                       placeholder="project-name"
                     />
@@ -188,7 +211,7 @@ export default function AdminProjects() {
                   <Label>Short Description</Label>
                   <textarea
                     name="shortDescription"
-                    value={formData.shortDescription || ''}
+                    value={formData.shortDescription || ""}
                     onChange={handleInputChange}
                     placeholder="Brief description"
                     className="w-full px-3 py-2 border border-input rounded-md text-sm"
@@ -200,7 +223,7 @@ export default function AdminProjects() {
                     <Label>Role</Label>
                     <Input
                       name="role"
-                      value={formData.role || ''}
+                      value={formData.role || ""}
                       onChange={handleInputChange}
                       placeholder="e.g., Full Stack Developer"
                     />
@@ -209,7 +232,7 @@ export default function AdminProjects() {
                     <Label>Project Type</Label>
                     <select
                       name="projectType"
-                      value={formData.projectType || 'personal'}
+                      value={formData.projectType || "personal"}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-input rounded-md text-sm"
                     >
@@ -225,11 +248,13 @@ export default function AdminProjects() {
                     <Label>Tech Stack (comma separated)</Label>
                     <Input
                       name="techStack"
-                      value={(formData.techStack as string[])?.join(', ') || ''}
+                      value={(formData.techStack as string[])?.join(", ") || ""}
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          techStack: e.target.value.split(',').map((s) => s.trim()),
+                          techStack: e.target.value
+                            .split(",")
+                            .map((s) => s.trim()),
                         }))
                       }
                       placeholder="React, Node.js, MongoDB"
@@ -239,7 +264,7 @@ export default function AdminProjects() {
                     <Label>Live URL</Label>
                     <Input
                       name="liveUrl"
-                      value={formData.liveUrl || ''}
+                      value={formData.liveUrl || ""}
                       onChange={handleInputChange}
                       placeholder="https://..."
                     />
@@ -248,7 +273,7 @@ export default function AdminProjects() {
                     <Label>GitHub URL</Label>
                     <Input
                       name="githubUrl"
-                      value={formData.githubUrl || ''}
+                      value={formData.githubUrl || ""}
                       onChange={handleInputChange}
                       placeholder="https://..."
                     />
@@ -276,7 +301,9 @@ export default function AdminProjects() {
                 </div>
                 <div className="flex gap-2 pt-4">
                   <Button onClick={handleSaveProject} disabled={isSaving}>
-                    {isSaving ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                    {isSaving ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : null}
                     Save
                   </Button>
                   <Button
@@ -293,13 +320,20 @@ export default function AdminProjects() {
             {/* Projects List */}
             <div className="space-y-3">
               {projects.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">No projects yet</p>
+                <p className="text-center text-muted-foreground py-8">
+                  No projects yet
+                </p>
               ) : (
                 projects.map((project) => (
-                  <div key={project._id?.toString()} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50">
+                  <div
+                    key={project._id?.toString()}
+                    className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50"
+                  >
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-sm">{project.title}</h4>
-                      <p className="text-xs text-muted-foreground truncate">{project.shortDescription}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {project.shortDescription}
+                      </p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
                       <Button
@@ -312,7 +346,9 @@ export default function AdminProjects() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleDeleteProject(project._id?.toString() || '')}
+                        onClick={() =>
+                          handleDeleteProject(project._id?.toString() || "")
+                        }
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

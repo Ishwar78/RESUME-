@@ -11,6 +11,7 @@ Your portfolio website has been successfully transformed into a dynamic system w
 ### 1. **Backend System (Express.js + MongoDB)**
 
 #### Models Created
+
 - ✅ **AboutSection** - Profile info, headline, social links, resume URL
 - ✅ **SkillCategory** - Organized skills with proficiency levels (Beginner to Expert)
 - ✅ **Project** - Portfolio projects with rich details, markdown content, gallery, videos
@@ -18,18 +19,21 @@ Your portfolio website has been successfully transformed into a dynamic system w
 - ✅ **AdminUser** - Secure admin accounts with bcrypt password hashing
 
 #### Authentication System
+
 - ✅ JWT-based authentication (30-day token expiry)
 - ✅ Password hashing with bcryptjs
 - ✅ Protected routes middleware
 - ✅ Login/logout endpoints
 
 #### File Upload System
+
 - ✅ Image upload (JPEG, PNG, GIF, WebP)
 - ✅ PDF upload (for resumes)
 - ✅ Video upload (MP4, WebM, QuickTime)
 - ✅ Automatic file organization in `/public/uploads/`
 
 #### API Endpoints (23 total)
+
 - ✅ 6 public endpoints (no authentication required)
 - ✅ 2 auth endpoints (login/logout)
 - ✅ 15 protected admin endpoints (CRUD operations)
@@ -38,22 +42,27 @@ Your portfolio website has been successfully transformed into a dynamic system w
 ### 2. **Frontend Admin Panel (React)**
 
 #### Admin Pages Created
+
 1. **AdminLogin.tsx** - Secure login with error handling
+
    - Default credentials: `admin@example.com` / `admin123`
    - Redirects on successful login
 
 2. **AdminDashboard.tsx** - Dashboard hub
+
    - Quick access to all content management sections
    - User info display
    - Logout button
 
 3. **AdminAbout.tsx** - Profile management
+
    - Edit name, headline, location, bio
    - Upload profile photo and resume PDF
    - Manage social links (GitHub, LinkedIn, Twitter, Email, Website)
    - Preview changes
 
 4. **AdminSkills.tsx** - Skills organization
+
    - Create/edit/delete skill categories
    - Add skills within categories
    - Set proficiency levels
@@ -61,6 +70,7 @@ Your portfolio website has been successfully transformed into a dynamic system w
    - Drag-and-drop ready ordering
 
 5. **AdminProjects.tsx** - Project management
+
    - Create/edit/delete projects
    - Fields: title, slug, description, tech stack, role, type, dates, URLs
    - Featured project flag
@@ -76,12 +86,14 @@ Your portfolio website has been successfully transformed into a dynamic system w
    - Timeline ordering
 
 #### Authentication & Security
+
 - ✅ **ProtectedRoute.tsx** - Route guard component
 - ✅ **useAuth.ts** - Authentication hook with login/logout
 - ✅ **useApi.ts** - API request hook with JWT token management
 - ✅ **Automatic redirects** to login for unauthorized access
 
 #### New Public Pages
+
 - ✅ **ProjectDetail.tsx** - Dynamic project detail page
   - URL: `/projects/:slug`
   - Displays project information
@@ -94,6 +106,7 @@ Your portfolio website has been successfully transformed into a dynamic system w
 ### 3. **Shared Types System**
 
 ✅ **shared/types.ts** - Centralized type definitions
+
 - Shared between frontend and backend
 - Ensures type safety across the stack
 - Covers all data models
@@ -101,18 +114,21 @@ Your portfolio website has been successfully transformed into a dynamic system w
 ### 4. **Configuration & Setup**
 
 #### Environment Variables
+
 - ✅ `.env.example` - Template with all required variables
 - ✅ `MONGO_URI` - MongoDB Atlas connection
 - ✅ `JWT_SECRET` - Authentication secret key
 - ✅ `NODE_ENV` - Environment setting
 
 #### Setup Script
+
 - ✅ **server/scripts/setup-admin.ts**
   - Creates default admin user
   - Run once to initialize system
   - Idempotent (safe to run multiple times)
 
 #### Build Configuration
+
 - ✅ TypeScript validation passes (npm run typecheck)
 - ✅ All dependencies installed
 - ✅ Ready for development and production builds
@@ -122,6 +138,7 @@ Your portfolio website has been successfully transformed into a dynamic system w
 ## 🎯 How to Use
 
 ### Initial Setup (5 minutes)
+
 ```bash
 # 1. Set environment variables
 echo 'JWT_SECRET=your-secure-key' > .env
@@ -141,6 +158,7 @@ npm run dev
 ```
 
 ### Managing Content
+
 1. **About Section** - Update your profile information
 2. **Skills** - Organize and categorize your skills
 3. **Projects** - Add portfolio projects with rich details
@@ -151,6 +169,7 @@ npm run dev
 ## 📋 Data Models Details
 
 ### AboutSection
+
 ```typescript
 {
   name: string;
@@ -172,6 +191,7 @@ npm run dev
 ```
 
 ### SkillCategory
+
 ```typescript
 {
   name: string;                  // e.g., "Frontend", "Backend"
@@ -188,6 +208,7 @@ npm run dev
 ```
 
 ### Project
+
 ```typescript
 {
   title: string;
@@ -224,6 +245,7 @@ npm run dev
 ```
 
 ### ExperienceEntry
+
 ```typescript
 {
   companyName: string;
@@ -244,6 +266,7 @@ npm run dev
 ## 🔌 API Endpoints Reference
 
 ### Public Endpoints (No Auth)
+
 ```
 GET  /api/about                   # About section data
 GET  /api/skills                  # All skill categories
@@ -254,12 +277,14 @@ GET  /api/experience              # Experience timeline
 ```
 
 ### Authentication
+
 ```
 POST /api/admin/auth/login        # Login (returns JWT token)
 POST /api/admin/auth/logout       # Logout
 ```
 
 ### Protected Admin CRUD
+
 ```
 # About Management
 GET  /api/admin/about
@@ -365,29 +390,35 @@ project/
 ## 🔐 Security Features Implemented
 
 ✅ **Password Security**
+
 - Bcrypt hashing with 10 salt rounds
 - Never stored in plain text
 
 ✅ **Authentication**
+
 - JWT tokens with 30-day expiry
 - Token stored in localStorage (consider httpOnly cookies)
 - Automatic route protection
 
 ✅ **Database**
+
 - MongoDB Atlas with IP whitelist support
 - Mongoose schema validation
 - Unique constraints on emails and slugs
 
 ✅ **File Uploads**
+
 - MIME type validation
 - File size limits enforced
 - Isolated upload directory
 
 ✅ **CORS & Input**
+
 - CORS enabled for API access
 - Input validation on all endpoints
 
 ⚠️ **Before Production:**
+
 - Change JWT_SECRET to a strong random key
 - Change admin password from default
 - Set NODE_ENV to 'production'
@@ -400,25 +431,30 @@ project/
 ## 🚀 Deployment Instructions
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
 Creates:
+
 - `dist/spa/` - React build
 - `dist/server/` - Express build
 
 ### Run Production Build
+
 ```bash
 npm start
 ```
 
 ### Deploy to Netlify
+
 ```bash
 netlify deploy --prod
 ```
 
 Set environment variables in Netlify dashboard:
+
 - `MONGO_URI`
 - `JWT_SECRET`
 
@@ -456,15 +492,19 @@ Set environment variables in Netlify dashboard:
 ## 🆘 Common Issues & Solutions
 
 ### Issue: MongoDB Connection Error
+
 **Solution**: Verify MONGO_URI, check IP whitelist in MongoDB Atlas
 
 ### Issue: Admin Login Failing
+
 **Solution**: Clear localStorage, run setup script again
 
 ### Issue: File Upload Not Working
+
 **Solution**: Ensure `/public/uploads/` directory exists, check file size limits
 
 ### Issue: Routes Not Found (404)
+
 **Solution**: Ensure dev server is running, clear browser cache
 
 ---
@@ -503,6 +543,7 @@ npm run dev
 ```
 
 Then visit:
+
 - **Public site**: http://localhost:8080/
 - **Admin panel**: http://localhost:8080/admin/login
 
@@ -510,5 +551,5 @@ Then visit:
 
 ---
 
-*Built with ❤️ using Builder.io Fusion*
-*Last Updated: 2024*
+_Built with ❤️ using Builder.io Fusion_
+_Last Updated: 2024_

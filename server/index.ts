@@ -7,7 +7,11 @@ import { connectDB } from "./config/db";
 import { authenticateToken } from "./middleware/auth";
 import { uploadImage, uploadPDF, uploadVideo } from "./middleware/upload";
 import { handleLogin, handleLogout } from "./routes/auth";
-import { handleImageUpload, handlePDFUpload, handleVideoUpload } from "./routes/upload";
+import {
+  handleImageUpload,
+  handlePDFUpload,
+  handleVideoUpload,
+} from "./routes/upload";
 import {
   getAbout,
   getSkills,
@@ -15,10 +19,7 @@ import {
   getProjectBySlug,
   getExperience,
 } from "./routes/public";
-import {
-  getAboutForAdmin,
-  updateAbout,
-} from "./routes/admin-about";
+import { getAboutForAdmin, updateAbout } from "./routes/admin-about";
 import {
   getSkillCategories,
   createSkillCategory,
@@ -83,12 +84,36 @@ export function createServer() {
 
   // Skills Management
   app.get("/api/admin/skills", authenticateToken, getSkillCategories);
-  app.post("/api/admin/skills-category", authenticateToken, createSkillCategory);
-  app.put("/api/admin/skills-category/:id", authenticateToken, updateSkillCategory);
-  app.delete("/api/admin/skills-category/:id", authenticateToken, deleteSkillCategory);
-  app.post("/api/admin/skills-category/:id/skills", authenticateToken, addSkillToCategory);
-  app.put("/api/admin/skills-category/:id/skills/:skillId", authenticateToken, updateSkillInCategory);
-  app.delete("/api/admin/skills-category/:id/skills/:skillId", authenticateToken, deleteSkillFromCategory);
+  app.post(
+    "/api/admin/skills-category",
+    authenticateToken,
+    createSkillCategory,
+  );
+  app.put(
+    "/api/admin/skills-category/:id",
+    authenticateToken,
+    updateSkillCategory,
+  );
+  app.delete(
+    "/api/admin/skills-category/:id",
+    authenticateToken,
+    deleteSkillCategory,
+  );
+  app.post(
+    "/api/admin/skills-category/:id/skills",
+    authenticateToken,
+    addSkillToCategory,
+  );
+  app.put(
+    "/api/admin/skills-category/:id/skills/:skillId",
+    authenticateToken,
+    updateSkillInCategory,
+  );
+  app.delete(
+    "/api/admin/skills-category/:id/skills/:skillId",
+    authenticateToken,
+    deleteSkillFromCategory,
+  );
 
   // Projects Management
   app.get("/api/admin/projects", authenticateToken, getAllProjects);
@@ -105,9 +130,24 @@ export function createServer() {
   app.delete("/api/admin/experience/:id", authenticateToken, deleteExperience);
 
   // ========== FILE UPLOAD ROUTES ==========
-  app.post("/api/admin/upload/image", authenticateToken, uploadImage.single("file"), handleImageUpload);
-  app.post("/api/admin/upload/pdf", authenticateToken, uploadPDF.single("file"), handlePDFUpload);
-  app.post("/api/admin/upload/video", authenticateToken, uploadVideo.single("file"), handleVideoUpload);
+  app.post(
+    "/api/admin/upload/image",
+    authenticateToken,
+    uploadImage.single("file"),
+    handleImageUpload,
+  );
+  app.post(
+    "/api/admin/upload/pdf",
+    authenticateToken,
+    uploadPDF.single("file"),
+    handlePDFUpload,
+  );
+  app.post(
+    "/api/admin/upload/video",
+    authenticateToken,
+    uploadVideo.single("file"),
+    handleVideoUpload,
+  );
 
   return app;
 }

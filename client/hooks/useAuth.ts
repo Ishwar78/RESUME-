@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id: string;
@@ -18,10 +18,10 @@ interface UseAuthReturn {
 
 export function useAuth(): UseAuthReturn {
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem('adminToken');
+    return localStorage.getItem("adminToken");
   });
   const [user, setUser] = useState<User | null>(() => {
-    const stored = localStorage.getItem('adminUser');
+    const stored = localStorage.getItem("adminUser");
     return stored ? JSON.parse(stored) : null;
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -33,40 +33,40 @@ export function useAuth(): UseAuthReturn {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/admin/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/admin/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         });
 
         if (!response.ok) {
           const data = await response.json();
-          throw new Error(data.error || 'Login failed');
+          throw new Error(data.error || "Login failed");
         }
 
         const data = await response.json();
         setToken(data.token);
         setUser(data.user);
-        localStorage.setItem('adminToken', data.token);
-        localStorage.setItem('adminUser', JSON.stringify(data.user));
-        navigate('/admin/dashboard');
+        localStorage.setItem("adminToken", data.token);
+        localStorage.setItem("adminUser", JSON.stringify(data.user));
+        navigate("/admin/dashboard");
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Login failed';
+        const message = err instanceof Error ? err.message : "Login failed";
         setError(message);
         throw err;
       } finally {
         setIsLoading(false);
       }
     },
-    [navigate]
+    [navigate],
   );
 
   const logout = useCallback(() => {
     setToken(null);
     setUser(null);
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    navigate('/admin/login');
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminUser");
+    navigate("/admin/login");
   }, [navigate]);
 
   return {

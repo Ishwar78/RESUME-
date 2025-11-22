@@ -5,18 +5,21 @@ This guide will help you set up and run your new dynamic portfolio website with 
 ## Architecture Overview
 
 ### Backend
+
 - **Framework**: Express.js with TypeScript
 - **Database**: MongoDB with Mongoose
 - **Authentication**: JWT-based (email/password)
 - **File Uploads**: Local `/uploads` directory (ready for Cloudinary integration)
 
 ### Frontend
+
 - **Framework**: React 18 with React Router 6
 - **Styling**: TailwindCSS 3
 - **UI Components**: Radix UI + Lucide Icons
 - **Admin Pages**: Protected routes with authentication
 
 ### Database Models
+
 1. **AboutSection** - Profile info, social links, resume URL
 2. **SkillCategory** - Organized skills with proficiency levels
 3. **Project** - Portfolio projects with details, gallery, demo videos
@@ -28,6 +31,7 @@ This guide will help you set up and run your new dynamic portfolio website with 
 ## Step 1: Environment Setup
 
 ### 1.1 Clone/Access Your Project
+
 ```bash
 # Your project is already set up at /
 # All files have been created
@@ -39,6 +43,7 @@ This guide will help you set up and run your new dynamic portfolio website with 
 
 1. Click "Open Settings" in the top right
 2. Set the following environment variables:
+
 ```
 MONGO_URI=mongodb+srv://sharmaishwar970:ISHWAR2002@cluster0.b73q6ph.mongodb.net/Portfolio
 JWT_SECRET=your-secure-jwt-secret-key-here
@@ -48,6 +53,7 @@ NODE_ENV=development
 **Option B: Create .env file**
 
 Create a `.env` file in the root directory:
+
 ```env
 MONGO_URI=mongodb+srv://sharmaishwar970:ISHWAR2002@cluster0.b73q6ph.mongodb.net/Portfolio
 JWT_SECRET=your-secure-jwt-secret-key-here
@@ -59,6 +65,7 @@ NODE_ENV=development
 ## Step 2: Install Dependencies
 
 All dependencies have been installed automatically. They include:
+
 - `mongoose` - MongoDB ODM
 - `bcryptjs` - Password hashing
 - `jsonwebtoken` - JWT auth
@@ -77,6 +84,7 @@ npx tsx server/scripts/setup-admin.ts
 ```
 
 This will create:
+
 - **Email**: `admin@example.com`
 - **Password**: `admin123`
 
@@ -93,6 +101,7 @@ npm run dev
 The application will start on `http://localhost:8080` with both frontend and backend running.
 
 ### What's Running:
+
 - React SPA on `/`
 - API endpoints on `/api/*`
 - Admin panel on `/admin/*`
@@ -103,10 +112,12 @@ The application will start on `http://localhost:8080` with both frontend and bac
 ## Step 5: First Time Access
 
 ### Public Portfolio
+
 - **URL**: `http://localhost:8080/`
 - Shows your portfolio (initially with sample data)
 
 ### Admin Panel
+
 - **URL**: `http://localhost:8080/admin/login`
 - **Email**: `admin@example.com`
 - **Password**: `admin123`
@@ -116,6 +127,7 @@ The application will start on `http://localhost:8080` with both frontend and bac
 ## Step 6: Populate Your Content
 
 ### 1. Update About Section
+
 1. Go to `/admin/dashboard` → "About Section"
 2. Fill in your profile information
 3. Upload profile photo and resume PDF
@@ -123,12 +135,14 @@ The application will start on `http://localhost:8080` with both frontend and bac
 5. Click "Save Changes"
 
 ### 2. Manage Skills
+
 1. Go to `/admin/dashboard` → "Skills"
 2. Create skill categories (Frontend, Backend, Tools, etc.)
 3. Add skills within each category with proficiency levels
 4. Toggle "Show in Highlights" for featured skills
 
 ### 3. Add Projects
+
 1. Go to `/admin/dashboard` → "Projects"
 2. Click "New Project"
 3. Fill in project details:
@@ -144,6 +158,7 @@ The application will start on `http://localhost:8080` with both frontend and bac
    - Demo video URL
 
 ### 4. Add Experience
+
 1. Go to `/admin/dashboard` → "Experience"
 2. Click "New Entry"
 3. Fill in work experience details
@@ -155,6 +170,7 @@ The application will start on `http://localhost:8080` with both frontend and bac
 ## API Endpoints Reference
 
 ### Public Endpoints (No Auth Required)
+
 ```
 GET  /api/about                    # Get about section
 GET  /api/skills                   # Get all skills (grouped by category)
@@ -165,12 +181,14 @@ GET  /api/experience               # Get all experience entries
 ```
 
 ### Admin Authentication
+
 ```
 POST /api/admin/auth/login         # Login with email/password
 POST /api/admin/auth/logout        # Logout
 ```
 
 ### Protected Admin Endpoints (JWT Auth Required)
+
 ```
 # About
 GET  /api/admin/about              # Get about (for editing)
@@ -268,15 +286,18 @@ project/
 ## Deployment Instructions
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
 This creates:
+
 - `dist/spa/` - React build
 - `dist/server/` - Express build
 
 ### Run Production Build
+
 ```bash
 npm start
 ```
@@ -284,6 +305,7 @@ npm start
 ### Deploy to Netlify (Recommended)
 
 1. Install Netlify CLI:
+
 ```bash
 npm install -g netlify-cli
 ```
@@ -291,6 +313,7 @@ npm install -g netlify-cli
 2. Create `netlify.toml` (already exists)
 
 3. Deploy:
+
 ```bash
 netlify deploy --prod
 ```
@@ -304,12 +327,15 @@ netlify deploy --prod
 ## Customization Guide
 
 ### Change Default Admin Credentials
+
 1. Create a new admin user via the script with your desired email
 2. Update the setup script and run it again
 3. Delete the old admin from MongoDB
 
 ### Add More Skill Levels
+
 Edit `server/models/SkillCategory.ts`:
+
 ```typescript
 level: {
   type: String,
@@ -319,12 +345,15 @@ level: {
 ```
 
 ### Customize Admin Dashboard
+
 Edit `client/pages/AdminDashboard.tsx` to add more sections, change colors, or add shortcuts.
 
 ### Style the Project Detail Page
+
 Edit `client/pages/ProjectDetail.tsx` and modify the Tailwind classes to match your design.
 
 ### Add More File Types
+
 Edit `server/middleware/upload.ts` to support more file types (SVG, WebP, etc.)
 
 ---
@@ -332,21 +361,25 @@ Edit `server/middleware/upload.ts` to support more file types (SVG, WebP, etc.)
 ## Troubleshooting
 
 ### MongoDB Connection Error
+
 - Verify `MONGO_URI` is correct
 - Check MongoDB Atlas network whitelist
 - Ensure IP address is allowed
 
 ### JWT Authentication Failing
+
 - Clear browser localStorage
 - Log out and log back in
 - Regenerate `JWT_SECRET` if compromised
 
 ### File Upload Issues
+
 - Check `/public/uploads` directory exists
 - Verify file size limits in `server/middleware/upload.ts`
 - Check file MIME type restrictions
 
 ### Admin Login Not Working
+
 - Verify MongoDB is connected first
 - Check admin user exists: Run setup script again
 - Clear browser cache and localStorage
@@ -356,6 +389,7 @@ Edit `server/middleware/upload.ts` to support more file types (SVG, WebP, etc.)
 ## Security Best Practices
 
 ### Before Going Live:
+
 1. ✅ Change JWT_SECRET to a strong random key
 2. ✅ Change admin password from default
 3. ✅ Set NODE_ENV to 'production'
@@ -372,11 +406,13 @@ Edit `server/middleware/upload.ts` to support more file types (SVG, WebP, etc.)
 ## Performance Optimization
 
 ### Frontend
+
 - Images are served from `/uploads` (consider Cloudinary)
 - Use responsive images with proper sizing
 - Implement lazy loading for gallery images
 
 ### Backend
+
 - MongoDB indexes are auto-created by Mongoose
 - Consider adding caching for GET requests
 - Implement pagination for large data sets
@@ -399,6 +435,7 @@ Edit `server/middleware/upload.ts` to support more file types (SVG, WebP, etc.)
 ## Support & Help
 
 ### Documentation
+
 - [Express.js Docs](https://expressjs.com/)
 - [MongoDB Mongoose Docs](https://mongoosejs.com/)
 - [React Router Docs](https://reactrouter.com/)

@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface IExperienceEntry {
   companyName: string;
   roleTitle: string;
-  employmentType: 'full-time' | 'part-time' | 'internship' | 'freelance';
+  employmentType: "full-time" | "part-time" | "internship" | "freelance";
   location: string;
   startDate: Date;
   endDate?: Date;
@@ -21,8 +21,8 @@ const experienceEntrySchema = new mongoose.Schema<IExperienceEntry>(
     roleTitle: { type: String, required: true },
     employmentType: {
       type: String,
-      enum: ['full-time', 'part-time', 'internship', 'freelance'],
-      default: 'full-time',
+      enum: ["full-time", "part-time", "internship", "freelance"],
+      default: "full-time",
     },
     location: { type: String, required: true },
     startDate: { type: Date, required: true },
@@ -32,11 +32,11 @@ const experienceEntrySchema = new mongoose.Schema<IExperienceEntry>(
     techUsed: [String],
     order: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const ExperienceEntry = mongoose.model<IExperienceEntry>(
-  'ExperienceEntry',
-  experienceEntrySchema
+  "ExperienceEntry",
+  experienceEntrySchema,
 );
 export type { IExperienceEntry };

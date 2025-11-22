@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 export const handleImageUpload = (req: Request, res: Response) => {
   try {
     const file = (req as any).file as any;
     if (!file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
     const fileUrl = `/uploads/${file.filename}`;
@@ -14,8 +14,8 @@ export const handleImageUpload = (req: Request, res: Response) => {
       size: file.size,
     });
   } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ error: 'Upload failed' });
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };
 
@@ -23,7 +23,7 @@ export const handlePDFUpload = (req: Request, res: Response) => {
   try {
     const file = (req as any).file as any;
     if (!file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
     const fileUrl = `/uploads/${file.filename}`;
@@ -33,8 +33,8 @@ export const handlePDFUpload = (req: Request, res: Response) => {
       size: file.size,
     });
   } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ error: 'Upload failed' });
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };
 
@@ -42,7 +42,7 @@ export const handleVideoUpload = (req: Request, res: Response) => {
   try {
     const file = (req as any).file as any;
     if (!file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
     const fileUrl = `/uploads/${file.filename}`;
@@ -52,7 +52,7 @@ export const handleVideoUpload = (req: Request, res: Response) => {
       size: file.size,
     });
   } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ error: 'Upload failed' });
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };

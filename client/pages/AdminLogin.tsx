@@ -1,22 +1,28 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { Alert, AlertDescription } from '../components/ui/alert';
-import { Loader2, AlertCircle } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Alert, AlertDescription } from "../components/ui/alert";
+import { Loader2, AlertCircle } from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login, isLoading, error } = useAuth();
   const navigate = useNavigate();
 
   // Check if already logged in
-  if (localStorage.getItem('adminToken')) {
-    navigate('/admin/dashboard');
+  if (localStorage.getItem("adminToken")) {
+    navigate("/admin/dashboard");
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +30,7 @@ export default function AdminLogin() {
     try {
       await login(email, password);
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
     }
   };
 
@@ -34,7 +40,9 @@ export default function AdminLogin() {
         <Card className="border-2">
           <CardHeader className="space-y-2">
             <CardTitle className="text-2xl">Admin Login</CardTitle>
-            <CardDescription>Enter your credentials to access the admin panel</CardDescription>
+            <CardDescription>
+              Enter your credentials to access the admin panel
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,13 +79,9 @@ export default function AdminLogin() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isLoading ? 'Logging in...' : 'Login'}
+                {isLoading ? "Logging in..." : "Login"}
               </Button>
             </form>
 
@@ -85,7 +89,9 @@ export default function AdminLogin() {
               <p className="font-semibold mb-2">Default Credentials:</p>
               <p>Email: admin@example.com</p>
               <p>Password: admin123</p>
-              <p className="mt-2 text-xs text-orange-500">⚠️ Change these after first login</p>
+              <p className="mt-2 text-xs text-orange-500">
+                ⚠️ Change these after first login
+              </p>
             </div>
           </CardContent>
         </Card>

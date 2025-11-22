@@ -1,49 +1,55 @@
-import { useAuth } from '../hooks/useAuth';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Link } from 'react-router-dom';
-import { 
-  FileText, 
-  Code2, 
-  FolderOpen, 
-  Briefcase, 
+import { useAuth } from "../hooks/useAuth";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Link } from "react-router-dom";
+import {
+  FileText,
+  Code2,
+  FolderOpen,
+  Briefcase,
   Settings,
   LogOut,
   User,
-  Home
-} from 'lucide-react';
+  Home,
+} from "lucide-react";
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
 
   const menuItems = [
     {
-      title: 'About Section',
-      description: 'Manage your profile, bio, and social links',
-      href: '/admin/about',
+      title: "About Section",
+      description: "Manage your profile, bio, and social links",
+      href: "/admin/about",
       icon: User,
-      color: 'bg-blue-500',
+      color: "bg-blue-500",
     },
     {
-      title: 'Skills',
-      description: 'Organize skills by category and proficiency',
-      href: '/admin/skills',
+      title: "Skills",
+      description: "Organize skills by category and proficiency",
+      href: "/admin/skills",
       icon: Code2,
-      color: 'bg-green-500',
+      color: "bg-green-500",
     },
     {
-      title: 'Projects',
-      description: 'Manage your portfolio projects and details',
-      href: '/admin/projects',
+      title: "Projects",
+      description: "Manage your portfolio projects and details",
+      href: "/admin/projects",
       icon: FolderOpen,
-      color: 'bg-purple-500',
+      color: "bg-purple-500",
     },
     {
-      title: 'Experience',
-      description: 'Add and edit your work experience',
-      href: '/admin/experience',
+      title: "Experience",
+      description: "Add and edit your work experience",
+      href: "/admin/experience",
       icon: Briefcase,
-      color: 'bg-orange-500',
+      color: "bg-orange-500",
     },
   ];
 
@@ -58,7 +64,7 @@ export default function AdminDashboard() {
             </Link>
             <div className="text-sm text-muted-foreground">/ Admin Panel</div>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <div className="text-sm text-right">
               <div className="font-semibold">{user?.name}</div>
@@ -93,10 +99,14 @@ export default function AdminDashboard() {
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div>
-                          <CardTitle className="text-xl">{item.title}</CardTitle>
+                          <CardTitle className="text-xl">
+                            {item.title}
+                          </CardTitle>
                           <CardDescription>{item.description}</CardDescription>
                         </div>
-                        <div className={`${item.color} p-3 rounded-lg text-white`}>
+                        <div
+                          className={`${item.color} p-3 rounded-lg text-white`}
+                        >
                           <Icon className="h-6 w-6" />
                         </div>
                       </div>
@@ -123,7 +133,11 @@ export default function AdminDashboard() {
                     View Public Portfolio
                   </Button>
                 </Link>
-                <Button variant="outline" className="w-full justify-start" onClick={logout}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  onClick={logout}
+                >
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </Button>

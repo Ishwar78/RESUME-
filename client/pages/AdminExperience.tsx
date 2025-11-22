@@ -1,12 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { useApi } from '../hooks/useApi';
-import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit3 } from 'lucide-react';
-import { IExperienceEntry } from '@shared/types';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { useApi } from "../hooks/useApi";
+import {
+  ArrowLeft,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Trash2,
+  Plus,
+  Edit3,
+} from "lucide-react";
+import { IExperienceEntry } from "@shared/types";
 
 export default function AdminExperience() {
   const { request } = useApi();
@@ -26,10 +40,12 @@ export default function AdminExperience() {
   const loadExperience = async () => {
     try {
       setIsLoading(true);
-      const data = await request<IExperienceEntry[]>('/api/admin/experience');
+      const data = await request<IExperienceEntry[]>("/api/admin/experience");
       setExperience(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load experience');
+      setError(
+        err instanceof Error ? err.message : "Failed to load experience",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -38,10 +54,10 @@ export default function AdminExperience() {
   const handleNewEntry = () => {
     setEditingId(null);
     setFormData({
-      companyName: '',
-      roleTitle: '',
-      employmentType: 'full-time',
-      location: '',
+      companyName: "",
+      roleTitle: "",
+      employmentType: "full-time",
+      location: "",
       startDate: new Date(),
       isCurrent: false,
       descriptionBullets: [],
@@ -59,7 +75,7 @@ export default function AdminExperience() {
 
   const handleSaveEntry = async () => {
     if (!formData.companyName || !formData.roleTitle) {
-      setError('Company name and role are required');
+      setError("Company name and role are required");
       return;
     }
 
@@ -67,14 +83,14 @@ export default function AdminExperience() {
     try {
       if (editingId) {
         await request(`/api/admin/experience/${editingId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       } else {
-        await request('/api/admin/experience', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await request("/api/admin/experience", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       }
@@ -83,29 +99,34 @@ export default function AdminExperience() {
       setTimeout(() => setSuccess(false), 3000);
       loadExperience();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save');
+      setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDeleteEntry = async (id: string) => {
-    if (!confirm('Delete this experience entry?')) return;
+    if (!confirm("Delete this experience entry?")) return;
     setIsSaving(true);
     try {
-      await request(`/api/admin/experience/${id}`, { method: 'DELETE' });
+      await request(`/api/admin/experience/${id}`, { method: "DELETE" });
       setSuccess(true);
       loadExperience();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete');
+      setError(err instanceof Error ? err.message : "Failed to delete");
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
-    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    const val =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
     setFormData((prev) => ({
       ...prev,
       [name]: val,
@@ -115,21 +136,25 @@ export default function AdminExperience() {
   const handleAddBullet = () => {
     setFormData((prev) => ({
       ...prev,
-      descriptionBullets: [...(prev.descriptionBullets || []), ''],
+      descriptionBullets: [...(prev.descriptionBullets || []), ""],
     }));
   };
 
   const handleBulletChange = (index: number, value: string) => {
     setFormData((prev) => ({
       ...prev,
-      descriptionBullets: prev.descriptionBullets?.map((b, i) => (i === index ? value : b)),
+      descriptionBullets: prev.descriptionBullets?.map((b, i) =>
+        i === index ? value : b,
+      ),
     }));
   };
 
   const handleRemoveBullet = (index: number) => {
     setFormData((prev) => ({
       ...prev,
-      descriptionBullets: prev.descriptionBullets?.filter((_, i) => i !== index),
+      descriptionBullets: prev.descriptionBullets?.filter(
+        (_, i) => i !== index,
+      ),
     }));
   };
 
@@ -183,13 +208,15 @@ export default function AdminExperience() {
             {/* Form */}
             {showForm && (
               <div className="p-6 bg-muted/50 rounded-lg space-y-4 border-2 border-dashed">
-                <h3 className="font-semibold">{editingId ? 'Edit Experience' : 'New Experience'}</h3>
+                <h3 className="font-semibold">
+                  {editingId ? "Edit Experience" : "New Experience"}
+                </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label>Company Name</Label>
                     <Input
                       name="companyName"
-                      value={formData.companyName || ''}
+                      value={formData.companyName || ""}
                       onChange={handleInputChange}
                       placeholder="Company name"
                     />
@@ -198,7 +225,7 @@ export default function AdminExperience() {
                     <Label>Role Title</Label>
                     <Input
                       name="roleTitle"
-                      value={formData.roleTitle || ''}
+                      value={formData.roleTitle || ""}
                       onChange={handleInputChange}
                       placeholder="Job title"
                     />
@@ -209,7 +236,7 @@ export default function AdminExperience() {
                     <Label>Employment Type</Label>
                     <select
                       name="employmentType"
-                      value={formData.employmentType || 'full-time'}
+                      value={formData.employmentType || "full-time"}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-input rounded-md text-sm"
                     >
@@ -223,7 +250,7 @@ export default function AdminExperience() {
                     <Label>Location</Label>
                     <Input
                       name="location"
-                      value={formData.location || ''}
+                      value={formData.location || ""}
                       onChange={handleInputChange}
                       placeholder="City, Country"
                     />
@@ -235,7 +262,13 @@ export default function AdminExperience() {
                     <Input
                       name="startDate"
                       type="date"
-                      value={formData.startDate ? new Date(formData.startDate).toISOString().split('T')[0] : ''}
+                      value={
+                        formData.startDate
+                          ? new Date(formData.startDate)
+                              .toISOString()
+                              .split("T")[0]
+                          : ""
+                      }
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
@@ -249,11 +282,19 @@ export default function AdminExperience() {
                     <Input
                       name="endDate"
                       type="date"
-                      value={formData.endDate ? new Date(formData.endDate).toISOString().split('T')[0] : ''}
+                      value={
+                        formData.endDate
+                          ? new Date(formData.endDate)
+                              .toISOString()
+                              .split("T")[0]
+                          : ""
+                      }
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          endDate: e.target.value ? new Date(e.target.value) : undefined,
+                          endDate: e.target.value
+                            ? new Date(e.target.value)
+                            : undefined,
                         }))
                       }
                       disabled={formData.isCurrent}
@@ -277,7 +318,9 @@ export default function AdminExperience() {
                       <div key={index} className="flex gap-2">
                         <Input
                           value={bullet}
-                          onChange={(e) => handleBulletChange(index, e.target.value)}
+                          onChange={(e) =>
+                            handleBulletChange(index, e.target.value)
+                          }
                           placeholder={`• Bullet point ${index + 1}`}
                         />
                         <Button
@@ -303,11 +346,13 @@ export default function AdminExperience() {
                 <div>
                   <Label>Tech Used (comma separated)</Label>
                   <Input
-                    value={(formData.techUsed as string[])?.join(', ') || ''}
+                    value={(formData.techUsed as string[])?.join(", ") || ""}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
-                        techUsed: e.target.value.split(',').map((s) => s.trim()),
+                        techUsed: e.target.value
+                          .split(",")
+                          .map((s) => s.trim()),
                       }))
                     }
                     placeholder="React, Node.js, MongoDB"
@@ -316,10 +361,16 @@ export default function AdminExperience() {
 
                 <div className="flex gap-2 pt-4">
                   <Button onClick={handleSaveEntry} disabled={isSaving}>
-                    {isSaving ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                    {isSaving ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : null}
                     Save
                   </Button>
-                  <Button variant="outline" onClick={() => setShowForm(false)} disabled={isSaving}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowForm(false)}
+                    disabled={isSaving}
+                  >
                     Cancel
                   </Button>
                 </div>
@@ -329,7 +380,9 @@ export default function AdminExperience() {
             {/* Experience List */}
             <div className="space-y-3">
               {experience.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">No experience entries yet</p>
+                <p className="text-center text-muted-foreground py-8">
+                  No experience entries yet
+                </p>
               ) : (
                 experience.map((entry) => (
                   <div
@@ -337,19 +390,27 @@ export default function AdminExperience() {
                     className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50"
                   >
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-sm">{entry.roleTitle}</h4>
+                      <h4 className="font-semibold text-sm">
+                        {entry.roleTitle}
+                      </h4>
                       <p className="text-xs text-muted-foreground">
                         {entry.companyName} • {entry.employmentType}
                       </p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
-                      <Button variant="ghost" size="sm" onClick={() => handleEditEntry(entry)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEditEntry(entry)}
+                      >
                         <Edit3 className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleDeleteEntry(entry._id?.toString() || '')}
+                        onClick={() =>
+                          handleDeleteEntry(entry._id?.toString() || "")
+                        }
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

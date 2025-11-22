@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface IProjectDetail {
   markdownContent: string;
@@ -19,7 +19,7 @@ interface IProject {
   shortDescription: string;
   techStack: string[];
   role: string;
-  projectType: 'personal' | 'freelance' | 'internship' | 'client work';
+  projectType: "personal" | "freelance" | "internship" | "client work";
   startDate: Date;
   endDate?: Date;
   isOngoing: boolean;
@@ -34,7 +34,7 @@ interface IProject {
 }
 
 const projectDetailSchema = new mongoose.Schema<IProjectDetail>({
-  markdownContent: { type: String, default: '' },
+  markdownContent: { type: String, default: "" },
   sections: [
     {
       title: String,
@@ -59,21 +59,21 @@ const projectSchema = new mongoose.Schema<IProject>(
     role: { type: String, required: true },
     projectType: {
       type: String,
-      enum: ['personal', 'freelance', 'internship', 'client work'],
-      default: 'personal',
+      enum: ["personal", "freelance", "internship", "client work"],
+      default: "personal",
     },
     startDate: { type: Date, required: true },
     endDate: Date,
     isOngoing: { type: Boolean, default: false },
-    thumbnailImageUrl: { type: String, default: '' },
+    thumbnailImageUrl: { type: String, default: "" },
     liveUrl: String,
     githubUrl: String,
     isFeatured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     detail: projectDetailSchema,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Project = mongoose.model<IProject>('Project', projectSchema);
+export const Project = mongoose.model<IProject>("Project", projectSchema);
 export type { IProject, IProjectDetail };

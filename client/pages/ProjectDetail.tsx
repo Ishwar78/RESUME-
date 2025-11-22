@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Header } from '../components/Header';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
-import { Card } from '../components/ui/card';
-import { ArrowLeft, Github, Globe, Loader2 } from 'lucide-react';
-import { IProject } from '@shared/types';
-import ReactMarkdown from 'react-markdown';
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Header } from "../components/Header";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Card } from "../components/ui/card";
+import { ArrowLeft, Github, Globe, Loader2 } from "lucide-react";
+import { IProject } from "@shared/types";
+import ReactMarkdown from "react-markdown";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -16,9 +16,9 @@ export default function ProjectDetail() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const isDark = localStorage.getItem('darkMode') === 'true';
+    const isDark = localStorage.getItem("darkMode") === "true";
     setDarkMode(isDark);
-    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
   useEffect(() => {
@@ -26,18 +26,20 @@ export default function ProjectDetail() {
       try {
         setIsLoading(true);
         const response = await fetch(`/api/projects/${slug}`);
-        if (!response.ok) throw new Error('Project not found');
+        if (!response.ok) throw new Error("Project not found");
         const data = await response.json();
         setProject(data);
 
         // Update page title and meta
         document.title = `${data.title} | Portfolio`;
-        const metaDescription = document.querySelector('meta[name="description"]');
+        const metaDescription = document.querySelector(
+          'meta[name="description"]',
+        );
         if (metaDescription) {
-          metaDescription.setAttribute('content', data.shortDescription);
+          metaDescription.setAttribute("content", data.shortDescription);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load project');
+        setError(err instanceof Error ? err.message : "Failed to load project");
       } finally {
         setIsLoading(false);
       }
@@ -51,8 +53,8 @@ export default function ProjectDetail() {
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode.toString());
-    document.documentElement.classList.toggle('dark', newDarkMode);
+    localStorage.setItem("darkMode", newDarkMode.toString());
+    document.documentElement.classList.toggle("dark", newDarkMode);
   };
 
   if (isLoading) {
@@ -69,7 +71,9 @@ export default function ProjectDetail() {
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <div className="container mx-auto px-4 pt-32 text-center">
           <h1 className="text-3xl font-bold mb-4">Project Not Found</h1>
-          <p className="text-muted-foreground mb-8">{error || 'The project you are looking for does not exist.'}</p>
+          <p className="text-muted-foreground mb-8">
+            {error || "The project you are looking for does not exist."}
+          </p>
           <Link to="/projects">
             <Button>Back to Projects</Button>
           </Link>
@@ -102,9 +106,13 @@ export default function ProjectDetail() {
               ))}
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {project.title}
+            </h1>
 
-            <p className="text-xl text-muted-foreground mb-6">{project.shortDescription}</p>
+            <p className="text-xl text-muted-foreground mb-6">
+              {project.shortDescription}
+            </p>
 
             {/* Meta Info */}
             <div className="flex flex-wrap gap-6 mb-8 pb-8 border-b border-border">
@@ -114,21 +122,26 @@ export default function ProjectDetail() {
               </div>
               <div>
                 <div className="text-sm text-muted-foreground">Type</div>
-                <div className="font-semibold capitalize">{project.projectType}</div>
+                <div className="font-semibold capitalize">
+                  {project.projectType}
+                </div>
               </div>
               <div>
                 <div className="text-sm text-muted-foreground">Duration</div>
                 <div className="font-semibold">
-                  {new Date(project.startDate).toLocaleDateString('en-US', {
-                    month: 'short',
-                    year: 'numeric',
+                  {new Date(project.startDate).toLocaleDateString("en-US", {
+                    month: "short",
+                    year: "numeric",
                   })}
                   {project.isOngoing
-                    ? ' - Present'
-                    : ` - ${new Date(project.endDate || '').toLocaleDateString('en-US', {
-                        month: 'short',
-                        year: 'numeric',
-                      })}`}
+                    ? " - Present"
+                    : ` - ${new Date(project.endDate || "").toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          year: "numeric",
+                        },
+                      )}`}
                 </div>
               </div>
             </div>
@@ -136,13 +149,16 @@ export default function ProjectDetail() {
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4">
               {project.liveUrl && (
-                <Button onClick={() => window.open(project.liveUrl, '_blank')}>
+                <Button onClick={() => window.open(project.liveUrl, "_blank")}>
                   <Globe className="h-4 w-4 mr-2" />
                   View Live
                 </Button>
               )}
               {project.githubUrl && (
-                <Button variant="outline" onClick={() => window.open(project.githubUrl, '_blank')}>
+                <Button
+                  variant="outline"
+                  onClick={() => window.open(project.githubUrl, "_blank")}
+                >
                   <Github className="h-4 w-4 mr-2" />
                   View Code
                 </Button>
@@ -183,33 +199,42 @@ export default function ProjectDetail() {
           )}
 
           {/* Gallery */}
-          {project.detail?.galleryImages && project.detail.galleryImages.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">Gallery</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {project.detail.galleryImages.map((image, index) => (
-                  <Card key={index} className="overflow-hidden border-2 hover:shadow-lg transition-shadow">
-                    <img
-                      src={image.url}
-                      alt={image.caption || `Gallery image ${index + 1}`}
-                      className="w-full h-64 object-cover"
-                    />
-                    {image.caption && (
-                      <div className="p-3 bg-muted">
-                        <p className="text-sm text-muted-foreground">{image.caption}</p>
-                      </div>
-                    )}
-                  </Card>
-                ))}
+          {project.detail?.galleryImages &&
+            project.detail.galleryImages.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-2xl font-bold mb-6">Gallery</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {project.detail.galleryImages.map((image, index) => (
+                    <Card
+                      key={index}
+                      className="overflow-hidden border-2 hover:shadow-lg transition-shadow"
+                    >
+                      <img
+                        src={image.url}
+                        alt={image.caption || `Gallery image ${index + 1}`}
+                        className="w-full h-64 object-cover"
+                      />
+                      {image.caption && (
+                        <div className="p-3 bg-muted">
+                          <p className="text-sm text-muted-foreground">
+                            {image.caption}
+                          </p>
+                        </div>
+                      )}
+                    </Card>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* Video */}
           {project.detail?.demoVideoUrl && (
             <div className="mb-12">
               <h2 className="text-2xl font-bold mb-6">Demo</h2>
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <div
+                className="relative w-full"
+                style={{ paddingBottom: "56.25%" }}
+              >
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg border-2 border-border"
                   src={project.detail.demoVideoUrl}
@@ -227,12 +252,22 @@ export default function ProjectDetail() {
               <h3 className="text-lg font-semibold mb-4">Project Links</h3>
               <div className="flex flex-wrap gap-4">
                 {project.liveUrl && (
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
                     → Live Website
                   </a>
                 )}
                 {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
                     → GitHub Repository
                   </a>
                 )}

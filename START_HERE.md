@@ -8,7 +8,7 @@ Your portfolio website has been **completely transformed** into a dynamic admin-
 ✅ **Admin Dashboard** to manage all content  
 ✅ **Protected Routes** for secure access  
 ✅ **File Upload System** for images and documents  
-✅ **Dynamic Portfolio Pages** that pull from the database  
+✅ **Dynamic Portfolio Pages** that pull from the database
 
 ---
 
@@ -17,11 +17,13 @@ Your portfolio website has been **completely transformed** into a dynamic admin-
 ### Step 1: Create Admin User (1 minute)
 
 Run this command in your terminal:
+
 ```bash
 npx tsx server/scripts/setup-admin.ts
 ```
 
 This creates an admin account:
+
 - **Email**: admin@example.com
 - **Password**: admin123
 
@@ -34,6 +36,7 @@ npm run dev
 ```
 
 You'll see output like:
+
 ```
 Server running on http://localhost:8080
 ```
@@ -51,6 +54,7 @@ Server running on http://localhost:8080
 Once logged in, you'll see the **Admin Dashboard** with 4 sections:
 
 ### 1. About Section
+
 - Upload your profile photo
 - Add your bio and headline
 - Upload resume PDF
@@ -58,12 +62,14 @@ Once logged in, you'll see the **Admin Dashboard** with 4 sections:
 - The "Download Resume" button on your site will use this PDF
 
 ### 2. Skills
+
 - Create skill categories (Frontend, Backend, Tools, Databases, etc.)
 - Add individual skills within each category
 - Set proficiency levels (Beginner → Expert)
 - Mark skills to show as highlights
 
 ### 3. Projects
+
 - Add all your portfolio projects
 - Upload project thumbnails
 - Add project details (markdown editor ready)
@@ -72,6 +78,7 @@ Once logged in, you'll see the **Admin Dashboard** with 4 sections:
 - Each project gets a unique URL: `/projects/project-slug`
 
 ### 4. Experience
+
 - Add your work experience
 - Include company, role, dates
 - Add bullet points for descriptions
@@ -96,14 +103,14 @@ Everything you add to the admin panel appears on your public site:
 
 ## 📁 Important Locations
 
-| What | Where |
-|------|-------|
-| Admin Login | `http://localhost:8080/admin/login` |
-| Admin Dashboard | `http://localhost:8080/admin/dashboard` |
-| Public Portfolio | `http://localhost:8080/` |
-| Uploaded Files | `/public/uploads/` |
-| Environment Config | `.env` file |
-| Documentation | See files below ↓ |
+| What               | Where                                   |
+| ------------------ | --------------------------------------- |
+| Admin Login        | `http://localhost:8080/admin/login`     |
+| Admin Dashboard    | `http://localhost:8080/admin/dashboard` |
+| Public Portfolio   | `http://localhost:8080/`                |
+| Uploaded Files     | `/public/uploads/`                      |
+| Environment Config | `.env` file                             |
+| Documentation      | See files below ↓                       |
 
 ---
 
@@ -112,16 +119,19 @@ Everything you add to the admin panel appears on your public site:
 Read these in order of usefulness:
 
 1. **QUICK_START.md** (5 min read)
+
    - Fast setup reference
    - Common tasks
 
 2. **SETUP_GUIDE.md** (20 min read)
+
    - Complete documentation
    - All API endpoints
    - Deployment instructions
    - Troubleshooting
 
 3. **IMPLEMENTATION_SUMMARY.md** (15 min read)
+
    - Technical overview
    - What was built
    - File structure
@@ -143,6 +153,7 @@ Password: admin123
 ```
 
 ⚠️ **Change after first login:**
+
 1. Log in with default credentials
 2. Update your password (via browser dev tools or directly in MongoDB)
 3. This admin account becomes yours
@@ -152,18 +163,23 @@ Password: admin123
 ## 🎨 Customization
 
 ### Change Admin Email
+
 Edit `server/scripts/setup-admin.ts`, change email, run script again.
 
 ### Change Skill Levels
+
 Edit `server/models/SkillCategory.ts`, add more level options.
 
 ### Customize Admin Pages
+
 Edit `client/pages/Admin*.tsx` files to change layout/styling.
 
 ### Change Project Detail Design
+
 Edit `client/pages/ProjectDetail.tsx` to customize how projects look.
 
 ### Upload to Cloudinary (Optional)
+
 Replace file upload in `server/middleware/upload.ts` with Cloudinary API.
 
 ---
@@ -171,13 +187,17 @@ Replace file upload in `server/middleware/upload.ts` with Cloudinary API.
 ## ⚙️ Environment Setup
 
 ### Initial Setup
+
 Your MongoDB is already configured with this connection string:
+
 ```
 mongodb+srv://sharmaishwar970:ISHWAR2002@cluster0.b73q6ph.mongodb.net/Portfolio
 ```
 
 ### Set JWT Secret
+
 Add this to your `.env` file for production:
+
 ```
 JWT_SECRET=your-super-secret-key-here-change-me
 ```
@@ -208,30 +228,36 @@ After setup, verify everything works:
 ### Before Going Live
 
 1. **Change JWT Secret**
+
    - Generate a strong random key
    - Set in environment variables
 
 2. **Change Admin Password**
+
    - Log into MongoDB Atlas
    - Update the AdminUser document
    - Or create new admin via updated script
 
 3. **Set NODE_ENV=production**
+
    - Important for security
 
 4. **Enable MongoDB IP Whitelist**
+
    - Only allow production server IP
 
 5. **Use HTTPS**
    - Never deploy without HTTPS
 
 ### Build for Production
+
 ```bash
 npm run build
 npm start
 ```
 
 ### Deploy to Netlify
+
 See SETUP_GUIDE.md for detailed Netlify deployment.
 
 ---
@@ -267,6 +293,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ## 🆘 Troubleshooting
 
 ### Server Won't Start
+
 ```bash
 # Check MongoDB connection
 # Verify MONGO_URI in terminal output
@@ -274,6 +301,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ```
 
 ### Can't Log In
+
 ```bash
 # Clear browser localStorage
 # Run setup-admin.ts again
@@ -281,6 +309,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ```
 
 ### Files Won't Upload
+
 ```bash
 # Ensure /public/uploads/ directory exists
 # Check file size (max 5MB for images)
@@ -288,6 +317,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ```
 
 ### Project Detail Page Shows 404
+
 ```bash
 # Verify project slug is correct (lowercase, no spaces)
 # Check project exists in MongoDB
@@ -309,6 +339,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ## 🎓 Learning Path
 
 ### Week 1: Basic Setup
+
 - [ ] Complete this START_HERE guide
 - [ ] Create admin user
 - [ ] Fill in About section
@@ -317,6 +348,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 - [ ] Add your current job to Experience
 
 ### Week 2: Rich Content
+
 - [ ] Add project details (markdown)
 - [ ] Upload project gallery images
 - [ ] Add more projects with full details
@@ -324,6 +356,7 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 - [ ] Test all links and pages
 
 ### Week 3: Go Live
+
 - [ ] Change admin password
 - [ ] Set strong JWT_SECRET
 - [ ] Build for production
@@ -336,18 +369,21 @@ A: The URL is stored in the "About Section" and served from `/uploads/`.
 ## 📈 Next Steps
 
 **Right Now:**
+
 1. Run `npx tsx server/scripts/setup-admin.ts`
 2. Run `npm run dev`
 3. Log into admin panel
 4. Add your profile photo and resume
 
 **This Week:**
+
 1. Fill in all your information
 2. Add all your projects
 3. Add all your experience
 4. Customize styling (optional)
 
 **Before Deployment:**
+
 1. Change admin password
 2. Set JWT_SECRET
 3. Test everything

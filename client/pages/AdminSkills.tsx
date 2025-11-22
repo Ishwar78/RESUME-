@@ -1,12 +1,26 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { useApi } from '../hooks/useApi';
-import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit2 } from 'lucide-react';
-import { ISkillCategory, ISkill } from '@shared/types';
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { useApi } from "../hooks/useApi";
+import {
+  ArrowLeft,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Trash2,
+  Plus,
+  Edit2,
+} from "lucide-react";
+import { ISkillCategory, ISkill } from "@shared/types";
 
 export default function AdminSkills() {
   const { request } = useApi();
@@ -16,7 +30,7 @@ export default function AdminSkills() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [categories, setCategories] = useState<ISkillCategory[]>([]);
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState("");
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [newSkill, setNewSkill] = useState<{ [key: string]: ISkill }>({});
 
@@ -27,10 +41,12 @@ export default function AdminSkills() {
   const loadCategories = async () => {
     try {
       setIsLoading(true);
-      const data = await request<ISkillCategory[]>('/api/admin/skills');
+      const data = await request<ISkillCategory[]>("/api/admin/skills");
       setCategories(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load categories');
+      setError(
+        err instanceof Error ? err.message : "Failed to load categories",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -40,31 +56,33 @@ export default function AdminSkills() {
     if (!newCategory.trim()) return;
     setIsSaving(true);
     try {
-      await request('/api/admin/skills-category', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await request("/api/admin/skills-category", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newCategory, order: categories.length }),
       });
-      setNewCategory('');
+      setNewCategory("");
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
       loadCategories();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to add category');
+      setError(err instanceof Error ? err.message : "Failed to add category");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDeleteCategory = async (id: string) => {
-    if (!confirm('Delete this category?')) return;
+    if (!confirm("Delete this category?")) return;
     setIsSaving(true);
     try {
-      await request(`/api/admin/skills-category/${id}`, { method: 'DELETE' });
+      await request(`/api/admin/skills-category/${id}`, { method: "DELETE" });
       setSuccess(true);
       loadCategories();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete category');
+      setError(
+        err instanceof Error ? err.message : "Failed to delete category",
+      );
     } finally {
       setIsSaving(false);
     }
@@ -76,29 +94,39 @@ export default function AdminSkills() {
     setIsSaving(true);
     try {
       await request(`/api/admin/skills-category/${categoryId}/skills`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(skill),
       });
-      setNewSkill((prev) => ({ ...prev, [categoryId]: { label: '', level: 'Intermediate', showInHighlights: false } }));
+      setNewSkill((prev) => ({
+        ...prev,
+        [categoryId]: {
+          label: "",
+          level: "Intermediate",
+          showInHighlights: false,
+        },
+      }));
       setSuccess(true);
       loadCategories();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to add skill');
+      setError(err instanceof Error ? err.message : "Failed to add skill");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDeleteSkill = async (categoryId: string, skillId: string) => {
-    if (!confirm('Delete this skill?')) return;
+    if (!confirm("Delete this skill?")) return;
     setIsSaving(true);
     try {
-      await request(`/api/admin/skills-category/${categoryId}/skills/${skillId}`, { method: 'DELETE' });
+      await request(
+        `/api/admin/skills-category/${categoryId}/skills/${skillId}`,
+        { method: "DELETE" },
+      );
       setSuccess(true);
       loadCategories();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete skill');
+      setError(err instanceof Error ? err.message : "Failed to delete skill");
     } finally {
       setIsSaving(false);
     }
@@ -125,7 +153,9 @@ export default function AdminSkills() {
         <Card className="border-2">
           <CardHeader>
             <CardTitle>Skills Management</CardTitle>
-            <CardDescription>Organize your skills by category and proficiency</CardDescription>
+            <CardDescription>
+              Organize your skills by category and proficiency
+            </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
@@ -152,7 +182,10 @@ export default function AdminSkills() {
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
                 />
-                <Button onClick={handleAddCategory} disabled={isSaving || !newCategory.trim()}>
+                <Button
+                  onClick={handleAddCategory}
+                  disabled={isSaving || !newCategory.trim()}
+                >
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
@@ -164,12 +197,22 @@ export default function AdminSkills() {
                 <Card key={category._id as string} className="border">
                   <CardHeader
                     className="cursor-pointer hover:bg-muted/50 transition-colors"
-                    onClick={() => setExpandedCategory(expandedCategory === (category._id as string) ? null : (category._id as string))}
+                    onClick={() =>
+                      setExpandedCategory(
+                        expandedCategory === (category._id as string)
+                          ? null
+                          : (category._id as string),
+                      )
+                    }
                   >
                     <div className="flex justify-between items-center">
                       <div>
-                        <CardTitle className="text-lg">{category.name}</CardTitle>
-                        <CardDescription>{category.skills?.length || 0} skills</CardDescription>
+                        <CardTitle className="text-lg">
+                          {category.name}
+                        </CardTitle>
+                        <CardDescription>
+                          {category.skills?.length || 0} skills
+                        </CardDescription>
                       </div>
                       <Button
                         variant="ghost"
@@ -189,15 +232,25 @@ export default function AdminSkills() {
                       {/* Skills in Category */}
                       <div className="space-y-2">
                         {category.skills?.map((skill) => (
-                          <div key={skill._id as string} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <div
+                            key={skill._id as string}
+                            className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                          >
                             <div className="flex-1">
                               <div className="font-medium">{skill.label}</div>
-                              <div className="text-xs text-muted-foreground">{skill.level}</div>
+                              <div className="text-xs text-muted-foreground">
+                                {skill.level}
+                              </div>
                             </div>
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleDeleteSkill(category._id as string, skill._id as string)}
+                              onClick={() =>
+                                handleDeleteSkill(
+                                  category._id as string,
+                                  skill._id as string,
+                                )
+                              }
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -210,26 +263,29 @@ export default function AdminSkills() {
                         <Label className="text-sm">Add Skill</Label>
                         <Input
                           placeholder="Skill name"
-                          value={newSkill[category._id as string]?.label || ''}
+                          value={newSkill[category._id as string]?.label || ""}
                           onChange={(e) =>
                             setNewSkill((prev) => ({
                               ...prev,
                               [category._id as string]: {
                                 label: e.target.value,
-                                level: 'Intermediate',
+                                level: "Intermediate",
                                 showInHighlights: false,
                               },
                             }))
                           }
                         />
                         <select
-                          value={newSkill[category._id as string]?.level || 'Intermediate'}
+                          value={
+                            newSkill[category._id as string]?.level ||
+                            "Intermediate"
+                          }
                           onChange={(e) =>
                             setNewSkill((prev) => ({
                               ...prev,
                               [category._id as string]: {
                                 ...prev[category._id as string],
-                                level: e.target.value as ISkill['level'],
+                                level: e.target.value as ISkill["level"],
                               },
                             }))
                           }
@@ -243,7 +299,9 @@ export default function AdminSkills() {
                         <Button
                           className="w-full"
                           onClick={() => handleAddSkill(category._id as string)}
-                          disabled={isSaving || !newSkill[category._id as string]?.label}
+                          disabled={
+                            isSaving || !newSkill[category._id as string]?.label
+                          }
                         >
                           Add Skill
                         </Button>
