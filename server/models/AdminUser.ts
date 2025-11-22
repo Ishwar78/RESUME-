@@ -26,16 +26,15 @@ const adminUserSchema = new mongoose.Schema<IAdminUser, AdminUserModel, IAdminUs
 );
 
 // Hash password before saving
-adminUserSchema.pre('save', async function (next) {
+adminUserSchema.pre('save', async function () {
   if (!(this as any).isModified('passwordHash')) {
-    return next();
+    return;
   }
   try {
     const salt = await bcrypt.genSalt(10);
     (this as any).passwordHash = await bcrypt.hash((this as any).passwordHash, salt);
-    next();
   } catch (error) {
-    next(error instanceof Error ? error : new Error(String(error)));
+    throw error instanceof Error ? error : new Error(String(error));
   }
 });
 
