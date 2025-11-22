@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 export const handleImageUpload = (req: Request, res: Response) => {
   try {
-    const file = req.file as Express.Multer.File | undefined;
+    const file = (req as any).file as any;
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
@@ -21,7 +21,7 @@ export const handleImageUpload = (req: Request, res: Response) => {
 
 export const handlePDFUpload = (req: Request, res: Response) => {
   try {
-    const file = req.file as Express.Multer.File | undefined;
+    const file = (req as any).file as any;
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
@@ -40,7 +40,7 @@ export const handlePDFUpload = (req: Request, res: Response) => {
 
 export const handleVideoUpload = (req: Request, res: Response) => {
   try {
-    const file = req.file as Express.Multer.File | undefined;
+    const file = (req as any).file as any;
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
