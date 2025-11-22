@@ -85,7 +85,7 @@ export const updateSkillInCategory: RequestHandler = async (req, res) => {
       return res.status(404).json({ error: 'Category not found' });
     }
 
-    const skill = category.skills.id(skillId);
+    const skill = (category.skills as any).id(skillId);
     if (!skill) {
       return res.status(404).json({ error: 'Skill not found' });
     }
@@ -108,7 +108,7 @@ export const deleteSkillFromCategory: RequestHandler = async (req, res) => {
       return res.status(404).json({ error: 'Category not found' });
     }
 
-    category.skills.id(skillId)?.deleteOne();
+    (category.skills as any).id(skillId)?.deleteOne();
     await category.save();
     res.json(category);
   } catch (error) {
