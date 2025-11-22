@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Card } from '../components/ui/card';
 import { ArrowLeft, Github, Globe, Loader2 } from 'lucide-react';
-import { IProject } from '../../server/models/Project';
+import { IProject } from '@shared/types';
 import ReactMarkdown from 'react-markdown';
 
 export default function ProjectDetail() {

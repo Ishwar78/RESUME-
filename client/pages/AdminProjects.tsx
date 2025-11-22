@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { useApi } from '../hooks/useApi';
 import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit3 } from 'lucide-react';
-import { IProject } from '../../server/models/Project';
+import { IProject } from '@shared/types';
 
 export default function AdminProjects() {
   const { request } = useApi();

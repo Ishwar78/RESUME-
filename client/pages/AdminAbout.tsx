@@ -8,7 +8,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { useApi } from '../hooks/useApi';
 import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, X, Plus } from 'lucide-react';
-import { IAboutSection, ISocialLink } from '../../server/models/AboutSection';
+import { IAboutSection, ISocialLink } from '@shared/types';
 
 export default function AdminAbout() {
   const { request } = useApi();

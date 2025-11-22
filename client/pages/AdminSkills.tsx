@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { useApi } from '../hooks/useApi';
 import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit2 } from 'lucide-react';
-import { ISkillCategory, ISkill } from '../../server/models/SkillCategory';
+import { ISkillCategory, ISkill } from '@shared/types';
 
 export default function AdminSkills() {
   const { request } = useApi();

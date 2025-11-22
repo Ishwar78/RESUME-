@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { useApi } from '../hooks/useApi';
 import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Trash2, Plus, Edit3 } from 'lucide-react';
-import { IExperienceEntry } from '../../server/models/ExperienceEntry';
+import { IExperienceEntry } from '@shared/types';
 
 export default function AdminExperience() {
   const { request } = useApi();
