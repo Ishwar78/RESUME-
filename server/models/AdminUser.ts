@@ -29,7 +29,7 @@ adminUserSchema.pre('save', async function (next) {
     this.passwordHash = await bcrypt.hash(this.passwordHash, salt);
     next();
   } catch (error) {
-    next(error as Error);
+    next(error instanceof Error ? error : new Error(String(error)));
   }
 });
 
