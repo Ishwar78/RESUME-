@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { NextFunction } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 interface IAdminUser {
@@ -10,7 +10,13 @@ interface IAdminUser {
   comparePassword(password: string): Promise<boolean>;
 }
 
-const adminUserSchema = new mongoose.Schema<IAdminUser>(
+interface IAdminUserMethods {
+  comparePassword(password: string): Promise<boolean>;
+}
+
+type AdminUserModel = mongoose.Model<IAdminUser, {}, IAdminUserMethods>;
+
+const adminUserSchema = new mongoose.Schema<IAdminUser, AdminUserModel, IAdminUserMethods>(
   {
     email: { type: String, required: true, unique: true, lowercase: true },
     passwordHash: { type: String, required: true },
@@ -20,7 +26,7 @@ const adminUserSchema = new mongoose.Schema<IAdminUser>(
 );
 
 // Hash password before saving
-adminUserSchema.pre('save', async function (next) {
+adminUserSchema.pre<IAdminUser>('save', async function (this, next: NextFunction) {
   if (!this.isModified('passwordHash')) {
     return next();
   }
