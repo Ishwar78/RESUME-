@@ -1,6 +1,7 @@
-import multer from 'multer';
+import multer, { FileFilterCallback } from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { Request } from 'express';
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
@@ -20,7 +21,7 @@ const storage = multer.diskStorage({
 });
 
 // Filter for different file types
-const imageFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const imageFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
@@ -29,7 +30,7 @@ const imageFilter = (req: Express.Request, file: Express.Multer.File, cb: multer
   }
 };
 
-const pdfFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const pdfFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   if (file.mimetype === 'application/pdf') {
     cb(null, true);
   } else {
@@ -37,7 +38,7 @@ const pdfFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.F
   }
 };
 
-const videoFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const videoFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   const allowedMimes = ['video/mp4', 'video/webm', 'video/quicktime'];
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
