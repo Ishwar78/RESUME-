@@ -1,4 +1,4 @@
-import mongoose, { NextFunction } from 'mongoose';
+import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 interface IAdminUser {
@@ -26,13 +26,13 @@ const adminUserSchema = new mongoose.Schema<IAdminUser, AdminUserModel, IAdminUs
 );
 
 // Hash password before saving
-adminUserSchema.pre<IAdminUser>('save', async function (this, next: NextFunction) {
-  if (!this.isModified('passwordHash')) {
+adminUserSchema.pre('save', async function (next) {
+  if (!(this as any).isModified('passwordHash')) {
     return next();
   }
   try {
     const salt = await bcrypt.genSalt(10);
-    this.passwordHash = await bcrypt.hash(this.passwordHash, salt);
+    (this as any).passwordHash = await bcrypt.hash((this as any).passwordHash, salt);
     next();
   } catch (error) {
     next(error instanceof Error ? error : new Error(String(error)));
