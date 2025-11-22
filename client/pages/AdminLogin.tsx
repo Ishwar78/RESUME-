@@ -86,11 +86,11 @@ export default function AdminLogin() {
             </form>
 
             <div className="mt-6 p-4 bg-muted rounded-lg text-sm text-muted-foreground">
-              <p className="font-semibold mb-2">Default Credentials:</p>
-              <p>Email: admin@example.com</p>
-              <p>Password: admin123</p>
+              <p className="font-semibold mb-2">Admin Credentials:</p>
+              <p>Email: sharmaishwar@gmail.com</p>
+              <p>Password: ishwar@2002</p>
               <p className="mt-2 text-xs text-orange-500">
-                ⚠️ Change these after first login
+                ⚠️ Keep these secure
               </p>
             </div>
           </CardContent>
