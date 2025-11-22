@@ -1,16 +1,17 @@
-import { RequestHandler } from 'express';
+import { Request, Response } from 'express';
 
-export const handleImageUpload: RequestHandler = (req, res) => {
+export const handleImageUpload = (req: Request, res: Response) => {
   try {
-    if (!req.file) {
+    const file = req.file as Express.Multer.File | undefined;
+    if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = `/uploads/${file.filename}`;
     res.json({
       url: fileUrl,
-      filename: req.file.filename,
-      size: req.file.size,
+      filename: file.filename,
+      size: file.size,
     });
   } catch (error) {
     console.error('Upload error:', error);
@@ -18,17 +19,18 @@ export const handleImageUpload: RequestHandler = (req, res) => {
   }
 };
 
-export const handlePDFUpload: RequestHandler = (req, res) => {
+export const handlePDFUpload = (req: Request, res: Response) => {
   try {
-    if (!req.file) {
+    const file = req.file as Express.Multer.File | undefined;
+    if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = `/uploads/${file.filename}`;
     res.json({
       url: fileUrl,
-      filename: req.file.filename,
-      size: req.file.size,
+      filename: file.filename,
+      size: file.size,
     });
   } catch (error) {
     console.error('Upload error:', error);
@@ -36,17 +38,18 @@ export const handlePDFUpload: RequestHandler = (req, res) => {
   }
 };
 
-export const handleVideoUpload: RequestHandler = (req, res) => {
+export const handleVideoUpload = (req: Request, res: Response) => {
   try {
-    if (!req.file) {
+    const file = req.file as Express.Multer.File | undefined;
+    if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = `/uploads/${file.filename}`;
     res.json({
       url: fileUrl,
-      filename: req.file.filename,
-      size: req.file.size,
+      filename: file.filename,
+      size: file.size,
     });
   } catch (error) {
     console.error('Upload error:', error);
